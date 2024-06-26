@@ -1,12 +1,16 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header';
+import Main from './components/Main';
+import Footer from './components/Footer';
 
 function App() {
   return (
     <>
-      <h1>文字数カウンター(word counter)</h1>
-      <h2>プロトタイプ</h2>
+      <Header />
+      <Main />
+      <Footer />
     </>
   );
 }

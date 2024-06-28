@@ -12,23 +12,60 @@ const Wrapper = styled.main`
   height: 90vh;
 `
 
+const CountNum = styled.h1`
+  font-size: 3rem;
+`
+
+const BtnWrapper = styled.div`
+  display: flex;
+  margin-bottom: 3rem;
+`
+
+const Btn = styled.div`
+  font-size: 2rem;
+  border: 0.1rem solid black;
+  background: #5CE1E6;
+  flex-grow: 1;
+  padding: 1rem 0;
+  font-weight: bold;
+`
+
+const TextCountArea = styled.textarea`
+  width: 100%;
+  height: 50%;
+`
+
 const Main = () => {
-  const [wordCount, setWordCount] = useState<number>(0)
+  const [word, setWord] = useState<string>("")
 
-
-  const toggleWordCount = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-    setWordCount(e.target.value.length)
+  const toggleWord = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+    setWord(e.target.value)
   }
+
+  const pasteWord = (): void => {
+    navigator.clipboard.readText()
+    .then(text => {
+      setWord(text)
+    })
+    .catch(err => {
+      alert('Error');
+    })
+  }
+
+  const deleteWord = (): void => {
+    setWord("")
+  }
+
   return (
     <Wrapper>
-      <h1>{wordCount}字</h1>
-      <textarea
-        name=""
-        id=""
-        cols={30}
-        rows={10}
-        onChange={(e) => toggleWordCount(e)}
-      ></textarea>
+      <CountNum>
+      {word.length}字
+      </CountNum>
+      <BtnWrapper>
+        <Btn onClick={pasteWord}>ペースト</Btn>
+        <Btn onClick={deleteWord}>クリア</Btn>      
+      </BtnWrapper>
+      <TextCountArea onChange={(e) => toggleWord(e)} value={word} />
     </Wrapper>
   )
 }
